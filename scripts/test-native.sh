@@ -33,4 +33,29 @@ if [[ "$RESULT" != "0" ]]; then
   echo "Noqeri ecosystem test failed: $RESULT" >&2
   exit 1
 fi
+# Exercise the fully native server-rendered example without reactive JS.
+PORT=40983
+bash "$ROOT/scripts/native.sh" serve "$PORT" >"$TMP/server.log" 2>&1 &
+SERVER_PID=$!
+trap 'kill "$SERVER_PID" 2>/dev/null || true; wait "$SERVER_PID" 2>/dev/null || true; rm -rf "$TMP"' EXIT
+READY=0
+for i in $(seq 1 50); do
+  if curl --max-time 2 -fsS "http://127.0.0.1:$PORT/" -o "$TMP/server.html" 2>/dev/null; then
+    READY=1
+    break
+  fi
+  if ! kill -0 "$SERVER_PID" 2>/dev/null; then break; fi
+  sleep 0.2
+done
+if [[ "$READY" != "1" ]]; then
+  cat "$TMP/server.log" >&2
+  echo "Native action server did not serve HTML" >&2
+  exit 1
+fi
+grep -q 'Button clicks' "$TMP/server.html"
+grep -q 'name="displayName"' "$TMP/server.html"
+if grep -qi '<script' "$TMP/server.html"; then
+  echo "Native action server emitted a script" >&2
+  exit 1
+fi
 echo "Noqeri UI native static build, no-JavaScript audit, core library and registry imports: PASS"
