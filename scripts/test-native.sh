@@ -62,4 +62,5 @@ if grep -qi '<script' "$TMP/server.html"; then
   echo "Native action server emitted a script" >&2
   exit 1
 fi
-echo "Noqeri UI native static build, no-JavaScript audit, core library and registry imports: PASS"
+bash "$ROOT/scripts/test-actions.sh" "$PORT" "$TMP"
+echo "Noqeri UI native static build, all components, registry imports and no-JavaScript actions: PASS"
