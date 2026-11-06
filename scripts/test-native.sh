@@ -6,6 +6,10 @@ NOQERI_BIN="${NOQERI_BIN:-$NOQERI_SOURCE/build/noqeri}"
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 bash "$ROOT/scripts/native.sh" build "$TMP/site"
+# Rendering all public exports catches invalid HTML, attributes and arguments.
+bash "$ROOT/scripts/native.sh" build "$TMP/coverage" "$ROOT/tests/component-coverage.noqeri"
+test -s "$TMP/coverage/index.html"
+grep -q "native component coverage" "$TMP/coverage/index.html"
 test -s "$TMP/site/index.html"
 test -s "$TMP/site/components/index.html"
 test -s "$TMP/site/forms/index.html"
