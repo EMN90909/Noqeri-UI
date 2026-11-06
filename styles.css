@@ -178,3 +178,29 @@
 @media(prefers-reduced-motion:reduce) {
  .nui-root *, .nui-root *::before, .nui-root *::after {animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
+
+/* JavaScript-free interaction patterns. CSS :has is supported by modern browsers. */
+.nui-root:has(.nui-color-mode-toggle:checked) {
+  color-scheme: dark;
+  --nui-background: #0c121c;
+  --nui-surface: #151d29;
+  --nui-text: #edf2fa;
+  --nui-muted: #acb9ca;
+  --nui-border: #354253;
+  --nui-primary-text: #fff;
+  --nui-ring: color-mix(in srgb, var(--nui-primary) 42%, transparent);
+}
+.nui-color-mode-label {padding: .4rem .65rem;border:1px solid var(--nui-border);border-radius:var(--nui-radius-sm);background:var(--nui-surface)}
+.nui-color-mode-toggle {appearance:none;position:relative;width:36px;height:21px;flex:none;border-radius:999px;background:#8d99ad;border:1px solid var(--nui-border);transition:background-color .15s}
+.nui-color-mode-toggle::before {content:"";position:absolute;width:13px;height:13px;left:3px;top:3px;border-radius:50%;background:white;transition:transform .15s}
+.nui-color-mode-toggle:checked {background:var(--nui-primary);border-color:var(--nui-primary)}
+.nui-color-mode-toggle:checked::before {transform:translateX(14px)}
+.nui-mobile-menu {position:relative;display:inline-block}
+.nui-mobile-menu-toggle {display:inline-flex;align-items:center;min-height:42px;cursor:pointer;padding:.55rem .85rem;border:1px solid var(--nui-border);border-radius:var(--nui-radius-sm);font-weight:700;background:var(--nui-surface)}
+.nui-mobile-menu-toggle:hover {background:var(--nui-soft)}
+.nui-mobile-menu-panel {position:absolute;z-index:10;top:calc(100% + .4rem);right:0;min-width:200px;display:grid;gap:.2rem;padding:.5rem;border:1px solid var(--nui-border);border-radius:var(--nui-radius-sm);background:var(--nui-surface);box-shadow:var(--nui-shadow)}
+.nui-breadcrumbs,.nui-pagination {display:flex;gap:.65rem;align-items:center;font-size:.85rem}
+.nui-breadcrumb-list {list-style:none;display:flex;gap:.6rem;flex-wrap:wrap;margin:0;padding:0;align-items:center}
+.nui-breadcrumb-list li+li::before {content:"/";display:inline-block;margin-inline-end:.6rem;color:var(--nui-muted)}
+.nui-page-current {font-weight:750;background:var(--nui-soft);color:var(--nui-primary);padding:.4rem .7rem;border-radius:var(--nui-radius-sm)}
+@media (max-width:720px) {.nui-mobile-menu-panel {right:0;min-width:min(86vw,260px)}}

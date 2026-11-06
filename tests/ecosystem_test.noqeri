@@ -13,6 +13,15 @@ function main(): int {
     if uiEscapedSize(slice(input)) != 13 as usize { return 5 }
     if uiEscapeText(slice(input),slice(escaped)) != 13 as isize { return 6 }
     if escaped[0] != 38 as u8 || escaped[1] != 108 as u8 { return 7 }
+    let route: [u8; 4] = [47 as u8,97 as u8,98 as u8,99 as u8]
+    let number: [u8; 3] = [49 as u8,50 as u8,51 as u8]
+    let json_out: [u8; 20]
+    if !uiValidRoute(slice(route)) || !uiRouteMatches(slice(route),slice(route)) { return 8 }
+    if uiValidRoute(slice(bad)) { return 9 }
+    if !uiValidJsonNumber(slice(number)) || uiValidJsonNumber(slice(bad)) { return 10 }
+    if uiJsonQuoteSize(slice(number)) != 5 as usize { return 11 }
+    if uiJsonQuote(slice(number),slice(json_out)) != 5 as isize { return 12 }
+    if json_out[0] != 34 as u8 || json_out[4] != 34 as u8 { return 13 }
     return 0
 }
 print(main())

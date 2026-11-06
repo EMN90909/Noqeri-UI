@@ -1,0 +1,51 @@
+// SPDX-License-Identifier: MIT
+module noqeri.router
+export function routerPatternValid(data: []u8): bool {
+    if len(data) == 0 as usize || len(data) > 2048 as usize || data[0] != 47 as u8 { return false }
+    let i: usize = 0 as usize
+    while i < len(data) {
+        if data[i] == 0 as u8 || data[i] == 92 as u8 || data[i] == 63 as u8 || data[i] == 35 as u8 { return false }
+        if data[i] == 47 as u8 && i + 1 as usize < len(data) && data[i + 1 as usize] == 47 as u8 { return false }
+        i = i + 1 as usize
+    }
+    return true
+}
+export function routerMatch(pattern: []u8, path: []u8): bool {
+    if !routerPatternValid(pattern) || !routerPatternValid(path) { return false }
+    let a: usize = 0 as usize
+    let b: usize = 0 as usize
+    while a < len(pattern) && b < len(path) {
+        if pattern[a] == 58 as u8 && a > 0 as usize && pattern[a - 1 as usize] == 47 as u8 {
+            a = a + 1 as usize
+            let start: usize = a
+            while a < len(pattern) && pattern[a] != 47 as u8 { a = a + 1 as usize }
+            if a == start || path[b] == 47 as u8 { return false }
+            while b < len(path) && path[b] != 47 as u8 { b = b + 1 as usize }
+        } else {
+            if pattern[a] != path[b] { return false }
+            a = a + 1 as usize
+            b = b + 1 as usize
+        }
+    }
+    return a == len(pattern) && b == len(path)
+}
+export function routerSegments(path: []u8): isize {
+    if !routerPatternValid(path) { return -1 as isize }
+    let result: isize = 0 as isize
+    let i: usize = 0 as usize
+    while i < len(path) {
+        if path[i] == 47 as u8 && i + 1 as usize < len(path) { result = result + 1 as isize }
+        i = i + 1 as usize
+    }
+    return result
+}
+export function routerRouteLengthValid(bytes: usize): bool { return bytes >= 1 as usize && bytes <= 2048 as usize }
+export function routerParameterChar(c: u8): bool {
+    return (c >= 65 as u8 && c <= 90 as u8) || (c >= 97 as u8 && c <= 122 as u8) || (c >= 48 as u8 && c <= 57 as u8) || c == 95 as u8
+}
+export function routerParameterNameValid(name: []u8): bool {
+    if len(name) == 0 as usize || len(name) > 64 as usize { return false }
+    let i: usize = 0 as usize
+    while i < len(name) { if !routerParameterChar(name[i]) { return false } i = i + 1 as usize }
+    return true
+}

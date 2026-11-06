@@ -30,6 +30,8 @@ jobs:
           cmp vendor/noqeri/dom/dom.noqeri ../noqeri-registry/packages/noqeri/dom/0.1.1/src/dom.noqeri
           cmp vendor/noqeri/html/html.noqeri ../noqeri-registry/packages/noqeri/html/0.1.1/src/html.noqeri
           cmp vendor/noqeri/tailwind/tailwind.noqeri ../noqeri-registry/packages/noqeri/tailwind/0.1.1/src/tailwind.noqeri
+          cmp vendor/noqeri/router/router.noqeri ../noqeri-registry/packages/noqeri/router/0.1.1/src/router.noqeri
+          cmp vendor/noqeri/json/json.noqeri ../noqeri-registry/packages/noqeri/json/0.1.1/src/json.noqeri
       - name: Build Noqeri native tools
         run: |
           cmake -S Noqeri -B /tmp/noqeri-native -DCMAKE_BUILD_TYPE=Release -DNOQERI_GRAPHICS_PORTABLE_BUILD=ON

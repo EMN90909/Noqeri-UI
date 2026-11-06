@@ -1,10 +1,10 @@
 # Noqeri UI
 
-A **Noqeri-native UI system** combining **102 Noqeri UI components** with **20 Noqeri core components**, plus three pinned and directly imported native libraries from [Noqeri Registry](https://github.com/EMN90909/noqeri-registry).
+A **Noqeri-native UI system** combining **106 Noqeri UI components** with **20 Noqeri core components**, plus five pinned and directly imported native libraries from [Noqeri Registry](https://github.com/EMN90909/noqeri-registry).
 
 **No JavaScript, TypeScript, Node.js, npm or frontend runtime dependency** is used to build the native static pages or perform the server-driven demo actions. No JSX, React or CSS framework required. The native compiler generates browser-standard HTML and CSS.
 
-> Release: **0.2.0 experimental**. Native Noqeri component rendering is presently a C++ bootstrap feature. True `import "noqeri/components"` resolution in the native web DSL is **not yet supported**. The supported approach uses Noqeri's `NOQERI_WEB_UI_PATH` to load the component bundle. The CLI, registry utility imports and compiler are distinct language frontends.
+> Release: **0.2.1 experimental**. Native Noqeri component rendering is presently a C++ bootstrap feature. True `import "noqeri/components"` resolution in the native web DSL is **not yet supported**. The supported approach uses Noqeri's `NOQERI_WEB_UI_PATH` to load the component bundle. The CLI, registry utility imports and compiler are distinct language frontends.
 
 ## Build a static Noqeri UI site
 
@@ -62,6 +62,8 @@ Ordinary Noqeri source `src/ecosystem.noqeri` **imports and wraps** the pinned `
 | `noqeri/dom` | 0.1.1 | `uiValidId`, `uiValidTag` |
 | `noqeri/html` | 0.1.1 | `uiEscapedSize`, `uiEscapeText`, `uiValidAttribute` |
 | `noqeri/tailwind` | 0.1.1 | `uiValidClass`, `uiClassVariantCount`, `uiClassJoin` |
+| `noqeri/router` | 0.1.1 | `uiValidRoute`, `uiRouteMatches` |
+| `noqeri/json` | 0.1.1 | `uiValidJsonNumber`, `uiJsonQuote` |
 
 These are **native language helpers**. The Tailwind registry module validates class names; it is not the Tailwind CSS framework. The DOM module exposes extern host calls, but the library does not claim a browser DOM host is available without wiring it up. Browser markup is rendered by Noqeri's native web compiler.
 
@@ -69,7 +71,9 @@ The package manifest pins these dependencies and vendor copies are checked again
 
 ## Components and design
 
-All 102 native components in `src/components.noqeri` are available through the assembled library, plus the `Core*` prefixed copies of the 19 existing `Lib/web/ui.noqeri` components. See [component inventory](docs/COMPONENTS.md) and [design system](docs/DESIGN_SYSTEM.md). Design uses CSS custom properties, responsive layout utilities, focus visibility, semantic form elements, dark mode variables and reduced-motion handling.
+All 106 native components in `src/components.noqeri` are available through the assembled library, plus the `Core*` prefixed copies of the 20 existing `Lib/web/ui.noqeri` components. See [component inventory](docs/COMPONENTS.md) and [design system](docs/DESIGN_SYSTEM.md). Design uses CSS custom properties, responsive layout utilities, focus visibility, semantic form elements, dark mode variables and reduced-motion handling.
+
+Native-only interactions now include accessible disclosure panels, CSS-only color-mode selection, a mobile navigation menu, breadcrumbs and pagination. A real button/form server-action POST regression verifies state changes and CSRF replay rejection.
 
 Not claimed: client-only reactive dialogs, custom focus traps, portalled popovers, keyboard-complete comboboxes or arbitrary component event callbacks. Static `Button()` displays a button, but to make an action work in native server mode use a native `button on.click` in your view.
 
@@ -83,7 +87,7 @@ CI runs Noqeri's actual native compiler, validates output contains no JavaScript
 
 ## Registry
 
-Package: `noqeri/components@0.2.0`. The registry is source-index-backed; this release is published by committing versioned package contents and the index entry. **Package installation alone does not yet resolve native web component imports.** Use the native bundling approach above until that compiler limitation is addressed.
+Package: `noqeri/components@0.2.1`. The registry is source-index-backed; this release is published by committing versioned package contents and the index entry. **Package installation alone does not yet resolve native web component imports.** Use the native bundling approach above until that compiler limitation is addressed.
 
 ## Licensing
 

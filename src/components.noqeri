@@ -590,3 +590,38 @@ component ProgressComplete(label: string) {
         }
     }
 }
+
+component ColorModeToggle(label: string, fieldId: string) {
+    label class: "nui-choice nui-color-mode-label" for: fieldId {
+        input id: fieldId name: fieldId class: "nui-color-mode-toggle" type: "checkbox" {}
+        span { label }
+    }
+}
+
+component MobileMenu(homeHref: string, componentsHref: string, formsHref: string) {
+    details class: "nui-mobile-menu" {
+        summary class: "nui-mobile-menu-toggle" { "Menu" }
+        nav class: "nui-mobile-menu-panel" {
+            a href: homeHref class: "nui-sidebar-link" { "Home" }
+            a href: componentsHref class: "nui-sidebar-link" { "Components" }
+            a href: formsHref class: "nui-sidebar-link" { "Forms" }
+        }
+    }
+}
+
+component Breadcrumbs2(firstLabel: string, firstHref: string, currentLabel: string) {
+    nav class: "nui-breadcrumbs" aria_label: "Breadcrumb" {
+        ol class: "nui-breadcrumb-list" {
+            li { a class: "nui-breadcrumb-link" href: firstHref { firstLabel } }
+            li aria_current: "page" class: "nui-breadcrumb-current" { currentLabel }
+        }
+    }
+}
+
+component Pagination3(previousHref: string, currentPage: string, nextHref: string) {
+    nav class: "nui-pagination" aria_label: "Pagination" {
+        a class: "nui-pagination-link" href: previousHref { "Previous" }
+        span aria_current: "page" class: "nui-page-current" { currentPage }
+        a class: "nui-pagination-link" href: nextHref { "Next" }
+    }
+}

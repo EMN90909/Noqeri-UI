@@ -1,0 +1,95 @@
+// SPDX-License-Identifier: MIT
+module noqeri.json
+export function jsonWhitespace(c: u8): bool { return c == 32 as u8 || c == 9 as u8 || c == 10 as u8 || c == 13 as u8 }
+export function jsonDigit(c: u8): bool { return c >= 48 as u8 && c <= 57 as u8 }
+export function jsonHex(c: u8): bool { return jsonDigit(c) || (c >= 65 as u8 && c <= 70 as u8) || (c >= 97 as u8 && c <= 102 as u8) }
+export function jsonSkipSpace(src: []u8, offset: usize): usize {
+    let i: usize = offset
+    if i > len(src) { return len(src) }
+    while i < len(src) && jsonWhitespace(src[i]) { i = i + 1 as usize }
+    return i
+}
+export function jsonStringTokenValid(src: []u8): bool {
+    if len(src) < 2 as usize || src[0] != 34 as u8 || src[len(src) - 1 as usize] != 34 as u8 { return false }
+    let i: usize = 1 as usize
+    while i + 1 as usize < len(src) {
+        let c: u8 = src[i]
+        if c < 32 as u8 || c == 34 as u8 { return false }
+        if c == 92 as u8 {
+            i = i + 1 as usize
+            if i + 1 as usize >= len(src) { return false }
+            let e: u8 = src[i]
+            if e == 117 as u8 {
+                if i + 4 as usize >= len(src) - 1 as usize { return false }
+                let k: usize = 1 as usize
+                while k <= 4 as usize { if !jsonHex(src[i + k]) { return false } k = k + 1 as usize }
+                i = i + 4 as usize
+            } else if e != 34 as u8 && e != 92 as u8 && e != 47 as u8 && e != 98 as u8 && e != 102 as u8 && e != 110 as u8 && e != 114 as u8 && e != 116 as u8 { return false }
+        }
+        i = i + 1 as usize
+    }
+    return true
+}
+export function jsonNumberValid(data: []u8): bool {
+    if len(data) == 0 as usize { return false }
+    let i: usize = 0 as usize
+    if data[i] == 45 as u8 { i = i + 1 as usize }
+    if i >= len(data) { return false }
+    if data[i] == 48 as u8 {
+        i = i + 1 as usize
+        if i < len(data) && jsonDigit(data[i]) { return false }
+    } else {
+        if data[i] < 49 as u8 || data[i] > 57 as u8 { return false }
+        while i < len(data) && jsonDigit(data[i]) { i = i + 1 as usize }
+    }
+    if i < len(data) && data[i] == 46 as u8 {
+        i = i + 1 as usize
+        if i >= len(data) || !jsonDigit(data[i]) { return false }
+        while i < len(data) && jsonDigit(data[i]) { i = i + 1 as usize }
+    }
+    if i < len(data) && (data[i] == 101 as u8 || data[i] == 69 as u8) {
+        i = i + 1 as usize
+        if i < len(data) && (data[i] == 45 as u8 || data[i] == 43 as u8) { i = i + 1 as usize }
+        if i >= len(data) || !jsonDigit(data[i]) { return false }
+        while i < len(data) && jsonDigit(data[i]) { i = i + 1 as usize }
+    }
+    return i == len(data)
+}
+export function jsonStringEscapedSize(data: []u8): usize {
+    let n: usize = 2 as usize
+    let i: usize = 0 as usize
+    while i < len(data) {
+        if data[i] == 34 as u8 || data[i] == 92 as u8 { n = n + 2 as usize }
+        else if data[i] < 32 as u8 { n = n + 6 as usize }
+        else { n = n + 1 as usize }
+        i = i + 1 as usize
+    }
+    return n
+}
+export function jsonQuoteAscii(data: []u8, dst: []u8): isize {
+    if jsonStringEscapedSize(data) > len(dst) { return -1 as isize }
+    let out: usize = 0 as usize
+    dst[out] = 34 as u8
+    out = out + 1 as usize
+    let i: usize = 0 as usize
+    while i < len(data) {
+        let c: u8 = data[i]
+        if c == 34 as u8 || c == 92 as u8 {
+            dst[out] = 92 as u8
+            dst[out + 1 as usize] = c
+            out = out + 2 as usize
+        } else if c < 32 as u8 {
+            dst[out] = 92 as u8
+            dst[out + 1 as usize] = 117 as u8
+            dst[out + 2 as usize] = 48 as u8
+            dst[out + 3 as usize] = 48 as u8
+            dst[out + 4 as usize] = 48 as u8 + c / 16 as u8
+            if c % 16 as u8 < 10 as u8 { dst[out + 5 as usize] = 48 as u8 + c % 16 as u8 }
+            else { dst[out + 5 as usize] = 87 as u8 + c % 16 as u8 }
+            out = out + 6 as usize
+        } else { dst[out] = c out = out + 1 as usize }
+        i = i + 1 as usize
+    }
+    dst[out] = 34 as u8
+    return (out + 1 as usize) as isize
+}

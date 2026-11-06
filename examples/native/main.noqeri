@@ -18,6 +18,7 @@ route "/" {
                 ui.NavLink("Home", "/")
                 ui.NavLink("Components", "/components")
                 ui.NavLink("Forms", "/forms")
+                ui.MobileMenu("/", "/components", "/forms")
             }
             ui.Hero("NOQERI UI", "Beautiful UI. One language.", "Native Noqeri components, responsive CSS, and no JavaScript.")
             div class: "nui-group" {
@@ -43,6 +44,7 @@ route "/components" {
                 ui.NavLink("Components", "/components")
                 ui.NavLink("Forms", "/forms")
             }
+            ui.Breadcrumbs2("Home", "/", "Components")
             ui.PageHeader("COMPONENT GALLERY", "Everyday building blocks", "A real native-compiled Noqeri UI showcase.")
             div class: "nui-group" {
                 ui.Badge("Default")
@@ -70,6 +72,7 @@ route "/components" {
             ui.AccordionItem("Does this require JavaScript?", "No. This accordion is a browser-native disclosure element.")
             ui.Disclosure("What's inside?", "Components, styles, registry helpers and the native compiler.")
             ui.ProgressThreeQuarters("Example progress")
+            ui.Pagination3("/", "2 of 3", "/forms")
             ui.Step("01", "Install", "Get the Noqeri UI registry package.")
             ui.Step("02", "Build", "Compile to static HTML and CSS.")
             ui.Step("03", "Ship", "Deploy the static files to any standard web host.")
@@ -89,6 +92,7 @@ route "/forms" {
                 ui.TextAreaField("Description", "description", "Write something meaningful")
                 ui.SelectThree("Priority", "priority", "Low", "Normal", "High")
                 ui.Checkbox("Send updates", "updates")
+                ui.ColorModeToggle("Dark mode without JavaScript", "color-mode")
                 ui.Switch("Enable notifications", "notifications")
                 ui.ProgressHalf("Setup progress")
             }

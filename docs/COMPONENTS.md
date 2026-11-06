@@ -2,7 +2,7 @@
 
 ## Native loader
 
-`scripts/native.sh` loads 102 `src/components.noqeri` components plus 19 prefixed `Core*` components from the Noqeri language repository's `Lib/web/ui.noqeri`. No JavaScript is bundled or required. The exposed namespace is `import "noqeri/ui" as ui`; the native compiler does not yet resolve `noqeri/components` from a registry package directly.
+`scripts/native.sh` loads 106 `src/components.noqeri` components plus 19 prefixed `Core*` components from the Noqeri language repository's `Lib/web/ui.noqeri`. No JavaScript is bundled or required. The exposed namespace is `import "noqeri/ui" as ui`; the native compiler does not yet resolve `noqeri/components` from a registry package directly.
 
 ## Core Noqeri UI exports
 
@@ -12,7 +12,7 @@ Core component names are generated with a `Core` prefix. There are **20 names in
 
 ## Native Noqeri UI components
 
-All 102 APIs live in [src/components.noqeri](../src/components.noqeri), including Button variants, Typography, Field/Input variants, accessible native details and summary, Progress, DataRows, Tables, Alerts and stat cards. Styling is in `styles.css`.
+All 106 APIs live in [src/components.noqeri](../src/components.noqeri), including Button variants, Typography, Field/Input variants, accessible native details and summary, Progress, DataRows, Tables, Alerts and stat cards. Styling is in `styles.css`.
 
 ### Server-driven interactions
 
@@ -38,3 +38,9 @@ Semantic HTML input/label associations, default keyboard-native `details` toggle
 ## Registry native functions
 
 `src/ecosystem.noqeri` imports three pinned modules: `dom`, `html`, `tailwind`. Validations are ordinary compiled Noqeri functions and are tested independently from the web view DSL. Client DOM host externs remain unsupported in the native web static path.
+
+## Added native patterns
+
+`ColorModeToggle(label, fieldId)` switches its enclosing `.nui-root` light/dark tokens using browser-native checkbox state and CSS `:has()`, no JavaScript. `MobileMenu(homeHref, componentsHref, formsHref)` uses `<details>` and keyboard-operable `<summary>`. `Breadcrumbs2` and `Pagination3` use semantic navigation and real links. These are intentionally bounded patterns rather than arbitrary-component child slots.
+
+Native registry functions now also import `noqeri/router@0.1.1` and `noqeri/json@0.1.1` for route and JSON validation.
