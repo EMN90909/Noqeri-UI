@@ -47,5 +47,5 @@ mkdir -p "$TMP/app"
 if [[ "$MODE" == "build" ]]; then
   NOQERI_WEB_UI_PATH="$TMP/ui.noqeri" "$NOQERI_WEB_BIN" build "$TMP/app" "$DEST"
 else
-  NOQERI_WEB_REACTIVE=0 NOQERI_WEB_UI_PATH="$TMP/ui.noqeri" "$NOQERI_WEB_BIN" serve-app "$TMP/app" "$DEST"
+  NOQERI_WEB_REACTIVE=0 NOQERI_WEB_UI_PATH="$TMP/ui.noqeri" "$NOQERI_WEB_BIN" serve-app "$TMP/app" "$DEST" "$TMP/state.nqkv"
 fi
