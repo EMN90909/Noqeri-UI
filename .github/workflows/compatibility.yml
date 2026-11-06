@@ -1,0 +1,24 @@
+name: Noqeri UI compatibility
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  browser-views:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: Noqeri-UI
+      - uses: actions/checkout@v4
+        with:
+          repository: EMN90909/Noqeri
+          ref: main
+          path: Noqeri
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Parse, compile and test Noqeri UI
+        working-directory: Noqeri-UI
+        run: NOQERI_REPO=../Noqeri node --test tests/ui-contract.mjs

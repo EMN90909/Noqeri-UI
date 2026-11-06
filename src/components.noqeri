@@ -1,0 +1,592 @@
+// SPDX-License-Identifier: MIT
+// Noqeri UI: composable, standards-based components for experimental web views.
+// Import with: import "noqeri/components" as ui
+// Interactive actions belong on native elements in application views.
+module noqeri.components
+
+component Heading(text: string) {
+    h1 class: "nui-h1" { text }
+}
+
+component Heading2(text: string) {
+    h2 class: "nui-h2" { text }
+}
+
+component Heading3(text: string) {
+    h3 class: "nui-h3" { text }
+}
+
+component Eyebrow(text: string) {
+    p class: "nui-eyebrow" { text }
+}
+
+component Text(text: string) {
+    p class: "nui-text" { text }
+}
+
+component Lead(text: string) {
+    p class: "nui-lead" { text }
+}
+
+component MutedText(text: string) {
+    p class: "nui-muted" { text }
+}
+
+component Caption(text: string) {
+    small class: "nui-caption" { text }
+}
+
+component InlineCode(text: string) {
+    code class: "nui-code" { text }
+}
+
+component KeyboardKey(text: string) {
+    code class: "nui-kbd" { text }
+}
+
+component Quote(text: string) {
+    blockquote class: "nui-quote" { text }
+}
+
+component Strong(text: string) {
+    strong class: "nui-strong" { text }
+}
+
+component FieldHelp(text: string) {
+    small class: "nui-field-help" { text }
+}
+
+component FieldError(text: string) {
+    p class: "nui-field-error" role: "alert" { text }
+}
+
+component Badge(text: string) {
+    span class: "nui-badge" { text }
+}
+
+component BadgeSuccess(text: string) {
+    span class: "nui-badge nui-badge-success" { text }
+}
+
+component BadgeWarning(text: string) {
+    span class: "nui-badge nui-badge-warning" { text }
+}
+
+component BadgeDanger(text: string) {
+    span class: "nui-badge nui-badge-danger" { text }
+}
+
+component BadgeInfo(text: string) {
+    span class: "nui-badge nui-badge-info" { text }
+}
+
+component Chip(text: string) {
+    span class: "nui-chip" { text }
+}
+
+component Avatar(text: string) {
+    span class: "nui-avatar" { text }
+}
+
+component Tag(text: string) {
+    span class: "nui-tag" { text }
+}
+
+component FooterNote(text: string) {
+    footer class: "nui-footer" { text }
+}
+
+component ListItem(text: string) {
+    li class: "nui-list-item" { text }
+}
+
+component TableCaption(text: string) {
+    caption class: "nui-table-caption" { text }
+}
+
+component BreadcrumbCurrent(text: string) {
+    span class: "nui-breadcrumb-current" { text }
+}
+
+component Loading(text: string) {
+    span class: "nui-spinner-label" role: "status" { text }
+}
+
+component HelpText(text: string) {
+    p class: "nui-help-text" { text }
+}
+
+component MenuHeading(text: string) {
+    p class: "nui-menu-heading" { text }
+}
+
+component DialogExplanation(text: string) {
+    p class: "nui-dialog-explanation" { text }
+}
+
+component Button(label: string) {
+    button type: "button" class: "nui-button" { label }
+}
+
+component SubmitButton(label: string) {
+    button type: "submit" class: "nui-button" { label }
+}
+
+component SecondaryButton(label: string) {
+    button type: "button" class: "nui-button nui-button-secondary" { label }
+}
+
+component OutlineButton(label: string) {
+    button type: "button" class: "nui-button nui-button-outline" { label }
+}
+
+component GhostButton(label: string) {
+    button type: "button" class: "nui-button nui-button-ghost" { label }
+}
+
+component DangerButton(label: string) {
+    button type: "button" class: "nui-button nui-button-danger" { label }
+}
+
+component SmallButton(label: string) {
+    button type: "button" class: "nui-button nui-button-small" { label }
+}
+
+component DisabledButton(label: string) {
+    button type: "button" disabled: true class: "nui-button" { label }
+}
+
+component TabButton(label: string) {
+    button type: "button" role: "tab" aria_selected: false class: "nui-tab" { label }
+}
+
+component TabSelected(label: string) {
+    button type: "button" role: "tab" aria_selected: true class: "nui-tab nui-tab-active" { label }
+}
+
+component LinkButton(label: string, href: string) {
+    a class: "nui-button" href: href { label }
+}
+
+component SecondaryLink(label: string, href: string) {
+    a class: "nui-button nui-button-secondary" href: href { label }
+}
+
+component NavLink(label: string, href: string) {
+    a class: "nui-nav-link" href: href { label }
+}
+
+component SidebarLink(label: string, href: string) {
+    a class: "nui-sidebar-link" href: href { label }
+}
+
+component BreadcrumbLink(label: string, href: string) {
+    a class: "nui-breadcrumb-link" href: href { label }
+}
+
+component PaginationLink(label: string, href: string) {
+    a class: "nui-pagination-link" href: href { label }
+}
+
+component InlineLink(label: string, href: string) {
+    a class: "nui-inline-link" href: href { label }
+}
+
+component CardLink(label: string, href: string) {
+    a class: "nui-card-link" href: href { label }
+}
+
+component Card(title: string, description: string) {
+    article class: "nui-card" {
+        h3 class: "nui-card-title" { title }
+        p class: "nui-muted" { description }
+    }
+}
+
+component CardWithFooter(title: string, description: string, footer: string) {
+    article class: "nui-card" {
+        h3 class: "nui-card-title" { title }
+        p class: "nui-muted" { description }
+        footer class: "nui-card-footer" { footer }
+    }
+}
+
+component Panel(title: string, description: string) {
+    section class: "nui-panel" {
+        h3 class: "nui-panel-title" { title }
+        p class: "nui-text" { description }
+    }
+}
+
+component Paper(title: string, description: string) {
+    section class: "nui-paper" {
+        h3 class: "nui-panel-title" { title }
+        p class: "nui-muted" { description }
+    }
+}
+
+component FeatureCard(eyebrow: string, title: string, description: string) {
+    article class: "nui-card nui-feature-card" {
+        p class: "nui-eyebrow" { eyebrow }
+        h3 class: "nui-card-title" { title }
+        p class: "nui-muted" { description }
+    }
+}
+
+component StatCard(label: string, value: string, detail: string) {
+    article class: "nui-card nui-stat-card" {
+        p class: "nui-stat-label" { label }
+        p class: "nui-stat-value" { value }
+        small class: "nui-muted" { detail }
+    }
+}
+
+component Metric(label: string, value: string) {
+    div class: "nui-metric" {
+        span class: "nui-stat-label" { label }
+        strong class: "nui-stat-value" { value }
+    }
+}
+
+component PageHeader(eyebrow: string, title: string, description: string) {
+    header class: "nui-page-header" {
+        p class: "nui-eyebrow" { eyebrow }
+        h1 class: "nui-h1" { title }
+        p class: "nui-lead" { description }
+    }
+}
+
+component Hero(eyebrow: string, title: string, description: string) {
+    header class: "nui-hero" {
+        p class: "nui-eyebrow" { eyebrow }
+        h1 class: "nui-display" { title }
+        p class: "nui-lead" { description }
+    }
+}
+
+component SectionHeading(title: string, description: string) {
+    header class: "nui-section-heading" {
+        h2 class: "nui-h2" { title }
+        p class: "nui-muted" { description }
+    }
+}
+
+component ToolbarTitle(title: string, description: string) {
+    div class: "nui-toolbar-title" {
+        strong class: "nui-strong" { title }
+        small class: "nui-muted" { description }
+    }
+}
+
+component AvatarName(initials: string, name: string) {
+    span class: "nui-avatar-name" {
+        span class: "nui-avatar" { initials }
+        span class: "nui-strong" { name }
+    }
+}
+
+component Alert(title: string, description: string) {
+    aside class: "nui-alert" role: "status" {
+        strong class: "nui-alert-title" { title }
+        p { description }
+    }
+}
+
+component AlertSuccess(title: string, description: string) {
+    aside class: "nui-alert nui-alert-success" role: "status" {
+        strong class: "nui-alert-title" { title }
+        p { description }
+    }
+}
+
+component AlertWarning(title: string, description: string) {
+    aside class: "nui-alert nui-alert-warning" role: "status" {
+        strong class: "nui-alert-title" { title }
+        p { description }
+    }
+}
+
+component AlertDanger(title: string, description: string) {
+    aside class: "nui-alert nui-alert-danger" role: "alert" {
+        strong class: "nui-alert-title" { title }
+        p { description }
+    }
+}
+
+component AlertInfo(title: string, description: string) {
+    aside class: "nui-alert nui-alert-info" role: "status" {
+        strong class: "nui-alert-title" { title }
+        p { description }
+    }
+}
+
+component EmptyState(title: string, description: string) {
+    section class: "nui-empty-state" role: "status" {
+        div class: "nui-empty-symbol" aria_hidden: true { "◇" }
+        h3 class: "nui-h3" { title }
+        p class: "nui-muted" { description }
+    }
+}
+
+component Callout(title: string, message: string) {
+    aside class: "nui-callout" role: "note" {
+        strong class: "nui-strong" { title }
+        p { message }
+    }
+}
+
+component ErrorSummary(title: string, message: string) {
+    section class: "nui-alert nui-alert-danger" role: "alert" {
+        strong { title }
+        p { message }
+    }
+}
+
+component SkeletonText() {
+    span class: "nui-skeleton nui-skeleton-text" aria_hidden: true {}
+}
+
+component SkeletonCard() {
+    div class: "nui-skeleton nui-skeleton-card" aria_hidden: true {}
+}
+
+component Spinner(label: string) {
+    span class: "nui-loading" role: "status" {
+        span class: "nui-spinner" aria_hidden: true {}
+        span class: "nui-spinner-label" { label }
+    }
+}
+
+component Divider() {
+    hr class: "nui-divider" {}
+}
+
+component SectionDivider() {
+    hr class: "nui-divider nui-section-divider" {}
+}
+
+component Disclosure(title: string, content: string) {
+    details class: "nui-disclosure" {
+        summary class: "nui-disclosure-summary" { title }
+        div class: "nui-disclosure-content" { content }
+    }
+}
+
+component AccordionItem(title: string, content: string) {
+    details class: "nui-accordion-item" {
+        summary class: "nui-accordion-summary" { title }
+        div class: "nui-accordion-panel" { content }
+    }
+}
+
+component Step(number: string, title: string, description: string) {
+    div class: "nui-step" {
+        span class: "nui-step-number" { number }
+        div class: "nui-step-body" {
+            strong class: "nui-strong" { title }
+            p class: "nui-muted" { description }
+        }
+    }
+}
+
+component TimelineItem(date: string, title: string, description: string) {
+    div class: "nui-timeline-item" {
+        time class: "nui-timeline-date" { date }
+        div class: "nui-timeline-body" {
+            strong class: "nui-strong" { title }
+            p class: "nui-muted" { description }
+        }
+    }
+}
+
+component DescriptionItem(term: string, value: string) {
+    div class: "nui-description-item" {
+        dt class: "nui-muted" { term }
+        dd class: "nui-description-value" { value }
+    }
+}
+
+component DataRow(label: string, value: string) {
+    div class: "nui-data-row" {
+        span class: "nui-muted" { label }
+        strong class: "nui-strong" { value }
+    }
+}
+
+component TableRow2(first: string, second: string) {
+    tr class: "nui-table-row" {
+        td { first }
+        td { second }
+    }
+}
+
+component TableRow3(first: string, second: string, third: string) {
+    tr class: "nui-table-row" {
+        td { first }
+        td { second }
+        td { third }
+    }
+}
+
+component TableHeader2(first: string, second: string) {
+    tr class: "nui-table-header" {
+        th { first }
+        th { second }
+    }
+}
+
+component TableHeader3(first: string, second: string, third: string) {
+    tr class: "nui-table-header" {
+        th { first }
+        th { second }
+        th { third }
+    }
+}
+
+component Field(labelText: string, fieldId: string, placeholderText: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        input id: fieldId name: fieldId class: "nui-input" type: "text" placeholder: placeholderText {}
+    }
+}
+
+component EmailField(labelText: string, fieldId: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        input id: fieldId name: fieldId class: "nui-input" type: "email" autocomplete: "email" {}
+    }
+}
+
+component PasswordField(labelText: string, fieldId: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        input id: fieldId name: fieldId class: "nui-input" type: "password" autocomplete: "current-password" {}
+    }
+}
+
+component NumberField(labelText: string, fieldId: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        input id: fieldId name: fieldId class: "nui-input" type: "number" autocomplete: "off" {}
+    }
+}
+
+component SearchField(labelText: string, fieldId: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        input id: fieldId name: fieldId class: "nui-input" type: "search" autocomplete: "off" {}
+    }
+}
+
+component PhoneField(labelText: string, fieldId: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        input id: fieldId name: fieldId class: "nui-input" type: "tel" autocomplete: "tel" {}
+    }
+}
+
+component DateField(labelText: string, fieldId: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        input id: fieldId name: fieldId class: "nui-input" type: "date" autocomplete: "off" {}
+    }
+}
+
+component FileField(labelText: string, fieldId: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        input id: fieldId name: fieldId class: "nui-input" type: "file" autocomplete: "off" {}
+    }
+}
+
+component RequiredField(labelText: string, fieldId: string, placeholderText: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        input id: fieldId name: fieldId class: "nui-input" type: "text" placeholder: placeholderText required: true {}
+    }
+}
+
+component TextAreaField(labelText: string, fieldId: string, placeholderText: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        textarea id: fieldId name: fieldId class: "nui-textarea" placeholder: placeholderText {}
+    }
+}
+
+component Checkbox(labelText: string, fieldId: string) {
+    label class: "nui-choice" for: fieldId {
+        input id: fieldId name: fieldId type: "checkbox" class: "nui-checkbox" {}
+        span { labelText }
+    }
+}
+
+component Radio(labelText: string, fieldId: string, groupName: string) {
+    label class: "nui-choice" for: fieldId {
+        input id: fieldId name: groupName type: "radio" class: "nui-radio" value: fieldId {}
+        span { labelText }
+    }
+}
+
+component Switch(labelText: string, fieldId: string) {
+    label class: "nui-choice nui-switch-label" for: fieldId {
+        input id: fieldId name: fieldId type: "checkbox" class: "nui-switch" role: "switch" {}
+        span { labelText }
+    }
+}
+
+component SelectTwo(labelText: string, fieldId: string, optionOne: string, optionTwo: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        select id: fieldId name: fieldId class: "nui-select" {
+            option value: optionOne { optionOne }
+            option value: optionTwo { optionTwo }
+        }
+    }
+}
+
+component SelectThree(labelText: string, fieldId: string, optionOne: string, optionTwo: string, optionThree: string) {
+    div class: "nui-field" {
+        label for: fieldId class: "nui-label" { labelText }
+        select id: fieldId name: fieldId class: "nui-select" {
+            option value: optionOne { optionOne }
+            option value: optionTwo { optionTwo }
+            option value: optionThree { optionThree }
+        }
+    }
+}
+
+component ProgressQuarter(label: string) {
+    div class: "nui-progress-group" {
+        span class: "nui-progress-label" { label }
+        div class: "nui-progress-track" role: "progressbar" aria_valuemin: 0 aria_valuemax: 100 aria_valuenow: 25 {
+            span class: "nui-progress-fill nui-progress-25" {}
+        }
+    }
+}
+
+component ProgressHalf(label: string) {
+    div class: "nui-progress-group" {
+        span class: "nui-progress-label" { label }
+        div class: "nui-progress-track" role: "progressbar" aria_valuemin: 0 aria_valuemax: 100 aria_valuenow: 50 {
+            span class: "nui-progress-fill nui-progress-50" {}
+        }
+    }
+}
+
+component ProgressThreeQuarters(label: string) {
+    div class: "nui-progress-group" {
+        span class: "nui-progress-label" { label }
+        div class: "nui-progress-track" role: "progressbar" aria_valuemin: 0 aria_valuemax: 100 aria_valuenow: 75 {
+            span class: "nui-progress-fill nui-progress-75" {}
+        }
+    }
+}
+
+component ProgressComplete(label: string) {
+    div class: "nui-progress-group" {
+        span class: "nui-progress-label" { label }
+        div class: "nui-progress-track" role: "progressbar" aria_valuemin: 0 aria_valuemax: 100 aria_valuenow: 100 {
+            span class: "nui-progress-fill nui-progress-100" {}
+        }
+    }
+}

@@ -1,0 +1,9 @@
+package {
+    name: "noqeri/components"
+    version: "0.1.0"
+    edition: "2026"
+    entry: "src/components.noqeri"
+    profile: "library"
+    target: "web-view"
+    license: "MIT"
+}
