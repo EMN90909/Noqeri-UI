@@ -1,0 +1,65 @@
+// SPDX-License-Identifier: MIT
+module noqeri.dom
+extern function domFind(selector: string): usize
+extern function domSetText(node: usize, text: string): bool
+extern function domSetAttribute(node: usize, name: string, value: string): bool
+extern function domRemove(node: usize): bool
+export function domValidHandle(handle: usize): bool { return handle != 0 as usize }
+export function domAsciiLetter(c: u8): bool {
+    return (c >= 65 as u8 && c <= 90 as u8) || (c >= 97 as u8 && c <= 122 as u8)
+}
+export function domAsciiDigit(c: u8): bool { return c >= 48 as u8 && c <= 57 as u8 }
+export function domCssIdValid(data: []u8): bool {
+    if len(data) == 0 as usize || len(data) > 128 as usize { return false }
+    if !domAsciiLetter(data[0]) && data[0] != 95 as u8 { return false }
+    let i: usize = 1 as usize
+    while i < len(data) {
+        if !domAsciiLetter(data[i]) && !domAsciiDigit(data[i]) && data[i] != 45 as u8 && data[i] != 95 as u8 { return false }
+        i = i + 1 as usize
+    }
+    return true
+}
+export function domTagValid(data: []u8): bool {
+    if len(data) == 0 as usize || !domAsciiLetter(data[0]) { return false }
+    let i: usize = 1 as usize
+    while i < len(data) {
+        if !domAsciiLetter(data[i]) && !domAsciiDigit(data[i]) && data[i] != 45 as u8 { return false }
+        i = i + 1 as usize
+    }
+    return true
+}
+export function domAttributeAllowed(name: []u8): bool {
+    // Explicitly allow text-oriented fields. Script, style, src, href and srcdoc are excluded.
+    let accepted: bool = false
+    if len(name) == 2 as usize && name[0] == 105 as u8 && name[1] == 100 as u8 { accepted = true }
+    if len(name) == 5 as usize && name[0] == 99 as u8 && name[1] == 108 as u8 && name[2] == 97 as u8 && name[3] == 115 as u8 && name[4] == 115 as u8 { accepted = true }
+    if len(name) == 5 as usize && name[0] == 116 as u8 && name[1] == 105 as u8 && name[2] == 116 as u8 && name[3] == 108 as u8 && name[4] == 101 as u8 { accepted = true }
+    if len(name) == 3 as usize && name[0] == 97 as u8 && name[1] == 108 as u8 && name[2] == 116 as u8 { accepted = true }
+    if len(name) >= 6 as usize && name[0] == 97 as u8 && name[1] == 114 as u8 && name[2] == 105 as u8 && name[3] == 97 as u8 && name[4] == 45 as u8 { accepted = true }
+    if len(name) >= 6 as usize && name[0] == 100 as u8 && name[1] == 97 as u8 && name[2] == 116 as u8 && name[3] == 97 as u8 && name[4] == 45 as u8 { accepted = true }
+    if !accepted { return false }
+    let i: usize = 0 as usize
+    while i < len(name) {
+        if !domAsciiLetter(name[i]) && !domAsciiDigit(name[i]) && name[i] != 45 as u8 { return false }
+        i = i + 1 as usize
+    }
+    return true
+}
+export function domTextValueSafe(text: []u8): bool {
+    let i: usize = 0 as usize
+    while i < len(text) { if text[i] == 0 as u8 { return false } i = i + 1 as usize }
+    return true
+}
+export function domSetTextChecked(handle: usize, text: string): bool {
+    if !domValidHandle(handle) { return false }
+    return domSetText(handle,text)
+}
+export function domRemoveChecked(handle: usize): bool {
+    if !domValidHandle(handle) { return false }
+    return domRemove(handle)
+}
+export function domAttributeValueMax(n: usize): bool { return n <= 65536 as usize }
+export function domFindChecked(selector: string): usize {
+    if textLength(selector) == 0 || textLength(selector) > 1024 { return 0 as usize }
+    return domFind(selector)
+}

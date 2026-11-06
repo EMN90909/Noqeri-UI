@@ -1,0 +1,99 @@
+// SPDX-License-Identifier: MIT
+// Fully native Noqeri component showcase; no browser JavaScript.
+import "noqeri/ui" as ui
+
+theme {
+    primary: "#fb5607"
+    background: "#f8fafc"
+    surface: "#ffffff"
+    text: "#182333"
+    border: "#dbe1e9"
+    muted: "#5e6b7d"
+    radius: 12
+}
+route "/" {
+    main class: "nui-root" {
+        div class: "nui-container nui-stack" {
+            nav class: "nui-navbar" {
+                ui.NavLink("Home", "/")
+                ui.NavLink("Components", "/components")
+                ui.NavLink("Forms", "/forms")
+            }
+            ui.Hero("NOQERI UI", "Beautiful UI. One language.", "Native Noqeri components, responsive CSS, and no JavaScript.")
+            div class: "nui-group" {
+                ui.LinkButton("Browse the components", "/components")
+                ui.SecondaryLink("Explore forms", "/forms")
+            }
+            ui.SectionHeading("The best of Noqeri", "We build on Noqeri's own component library instead of reinventing it.")
+            div class: "nui-grid" {
+                ui.FeatureCard("NATIVE", "Noqeri everywhere", "No React, Node.js, browser scripts or JavaScript glue.")
+                ui.FeatureCard("REGISTRY", "Ecosystem helpers", "DOM, HTML and class validation powered by pinned Noqeri modules.")
+                ui.FeatureCard("DESIGN", "Made for real products", "CSS tokens, semantic components, typography, forms and feedback.")
+            }
+            ui.CoreNotice("CoreNotice imported from Noqeri/Lib/web/ui.noqeri")
+            ui.FooterNote("Noqeri UI, built with Noqeri.")
+        }
+    }
+}
+route "/components" {
+    main class: "nui-root" {
+        div class: "nui-container nui-stack" {
+            nav class: "nui-navbar" {
+                ui.NavLink("Home", "/")
+                ui.NavLink("Components", "/components")
+                ui.NavLink("Forms", "/forms")
+            }
+            ui.PageHeader("COMPONENT GALLERY", "Everyday building blocks", "A real native-compiled Noqeri UI showcase.")
+            div class: "nui-group" {
+                ui.Badge("Default")
+                ui.BadgeSuccess("Healthy")
+                ui.BadgeWarning("Pending")
+                ui.BadgeDanger("Failed")
+                ui.BadgeInfo("Details")
+            }
+            ui.SectionHeading("Surfaces", "Ready for responsive dashboards, settings, and public websites.")
+            div class: "nui-grid" {
+                ui.Card("Projects", "Noqeri authored this component.")
+                ui.CoreCard("Noqeri core", "This card comes from the Noqeri language repository.")
+                ui.StatCard("Active users", "2,481", "Sample demo data")
+                ui.Panel("Actions", "Structured sections with consistent spacing.")
+                ui.AlertSuccess("System healthy", "All services are responding.")
+                ui.EmptyState("Nothing yet", "Create your first item.")
+            }
+            ui.SectionHeading("Actions and navigation", "Links work even with scripting switched off.")
+            div class: "nui-group" {
+                ui.LinkButton("Return home", "/")
+                ui.SecondaryLink("View forms", "/forms")
+                ui.BadgeSuccess("Server rendered")
+            }
+            ui.SectionHeading("Native disclosures", "Keyboard-accessible HTML details and summary.")
+            ui.AccordionItem("Does this require JavaScript?", "No. This accordion is a browser-native disclosure element.")
+            ui.Disclosure("What's inside?", "Components, styles, registry helpers and the native compiler.")
+            ui.ProgressThreeQuarters("Example progress")
+            ui.Step("01", "Install", "Get the Noqeri UI registry package.")
+            ui.Step("02", "Build", "Compile to static HTML and CSS.")
+            ui.Step("03", "Ship", "Deploy the static files to any standard web host.")
+            ui.FooterNote("102 Noqeri UI components and 19 prefixed core components.")
+        }
+    }
+}
+route "/forms" {
+    main class: "nui-root" {
+        div class: "nui-container nui-stack" {
+            nav class: "nui-navbar" { ui.NavLink("Home", "/") ui.NavLink("Components", "/components") ui.NavLink("Forms", "/forms") }
+            ui.PageHeader("FORMS", "Natural browser controls", "The browser handles focus and field validation without custom scripting.")
+            div class: "nui-grid-2" {
+                ui.Card("Account", "Accessible native form elements.")
+                ui.EmailField("Email address", "email")
+                ui.RequiredField("Project name", "project", "Your project")
+                ui.TextAreaField("Description", "description", "Write something meaningful")
+                ui.SelectThree("Priority", "priority", "Low", "Normal", "High")
+                ui.Checkbox("Send updates", "updates")
+                ui.Switch("Enable notifications", "notifications")
+                ui.ProgressHalf("Setup progress")
+            }
+            ui.FooterNote("For stateful forms, use Noqeri native serve-app mode.")
+        }
+    }
+}
+view { main class: "nui-root" { ui.EmptyState("Not found", "Open the home page to get started.") } }

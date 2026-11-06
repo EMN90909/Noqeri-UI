@@ -1,0 +1,37 @@
+// SPDX-License-Identifier: MIT
+// Native server-driven interactions, zero JavaScript.
+import "noqeri/ui" as ui
+let clicks = 0
+let visitor = "Guest"
+
+theme {
+    primary: "#fb5607"
+    background: "#f8fafc"
+    surface: "#ffffff"
+    text: "#182333"
+    radius: 12
+}
+route "/" {
+    main class: "nui-root" {
+        div class: "nui-container nui-stack" {
+            ui.PageHeader("NATIVE ACTIONS", "Real interactions. No JS.", "Noqeri handles POST requests and session state.")
+            ui.CoreBadge("Built with the Noqeri core UI library")
+            ui.Card("Session actions", "All actions happen on the Noqeri native server.")
+            p class: "nui-lead" { "Button clicks: " + clicks }
+            button class: "nui-button" on.click { clicks = clicks + 1 } { "Increment" }
+            ui.SectionHeading("Forms", "No script required: the server validates and saves form state.")
+            form on.submit {
+                validate(displayName, 2, 64)
+                visitor = form.displayName
+            } {
+                div class: "nui-field" {
+                    label for: "displayName" class: "nui-label" { "Your name" }
+                    input type: "text" name: "displayName" id: "displayName" class: "nui-input" required: true {}
+                }
+                button type: "submit" class: "nui-button" { "Save name" }
+            }
+            ui.AlertSuccess("Saved greeting", "Rendered on the native server.")
+            p class: "nui-text" { "Hello, " + visitor }
+        }
+    }
+}

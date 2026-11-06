@@ -1,0 +1,85 @@
+// SPDX-License-Identifier: MIT
+module noqeri.html
+export function htmlIsSpecial(c: u8): bool {
+    return c == 38 as u8 || c == 60 as u8 || c == 62 as u8 || c == 34 as u8 || c == 39 as u8
+}
+export function htmlEscapeWidth(c: u8): usize {
+    if c == 38 as u8 { return 5 as usize }
+    if c == 60 as u8 || c == 62 as u8 { return 4 as usize }
+    if c == 34 as u8 { return 6 as usize }
+    if c == 39 as u8 { return 5 as usize }
+    return 1 as usize
+}
+export function htmlEscapedSize(data: []u8): usize {
+    let n: usize = 0 as usize
+    let i: usize = 0 as usize
+    while i < len(data) { n = n + htmlEscapeWidth(data[i]) i = i + 1 as usize }
+    return n
+}
+export function htmlEscapeText(data: []u8, dst: []u8): isize {
+    let size: usize = htmlEscapedSize(data)
+    if len(dst) < size { return -1 as isize }
+    let i: usize = 0 as usize
+    let out: usize = 0 as usize
+    while i < len(data) {
+        let c: u8 = data[i]
+        if c == 38 as u8 {
+            dst[out] = 38 as u8
+            dst[out + 1 as usize] = 97 as u8
+            dst[out + 2 as usize] = 109 as u8
+            dst[out + 3 as usize] = 112 as u8
+            dst[out + 4 as usize] = 59 as u8
+        } else if c == 60 as u8 || c == 62 as u8 {
+            dst[out] = 38 as u8
+            if c == 60 as u8 { dst[out + 1 as usize] = 108 as u8 }
+            else { dst[out + 1 as usize] = 103 as u8 }
+            dst[out + 2 as usize] = 116 as u8
+            dst[out + 3 as usize] = 59 as u8
+        } else if c == 34 as u8 {
+            dst[out] = 38 as u8
+            dst[out + 1 as usize] = 113 as u8
+            dst[out + 2 as usize] = 117 as u8
+            dst[out + 3 as usize] = 111 as u8
+            dst[out + 4 as usize] = 116 as u8
+            dst[out + 5 as usize] = 59 as u8
+        } else if c == 39 as u8 {
+            dst[out] = 38 as u8
+            dst[out + 1 as usize] = 35 as u8
+            dst[out + 2 as usize] = 51 as u8
+            dst[out + 3 as usize] = 57 as u8
+            dst[out + 4 as usize] = 59 as u8
+        } else { dst[out] = c }
+        out = out + htmlEscapeWidth(c)
+        i = i + 1 as usize
+    }
+    return out as isize
+}
+export function htmlTagChar(c: u8): bool {
+    return (c >= 97 as u8 && c <= 122 as u8) || (c >= 65 as u8 && c <= 90 as u8) || (c >= 48 as u8 && c <= 57 as u8) || c == 45 as u8
+}
+export function htmlTagValid(name: []u8): bool {
+    if len(name) == 0 as usize { return false }
+    let first: u8 = name[0]
+    if !((first >= 97 as u8 && first <= 122 as u8) || (first >= 65 as u8 && first <= 90 as u8)) { return false }
+    let i: usize = 1 as usize
+    while i < len(name) { if !htmlTagChar(name[i]) { return false } i = i + 1 as usize }
+    return true
+}
+export function htmlAttrNameValid(name: []u8): bool {
+    if len(name) == 0 as usize { return false }
+    let i: usize = 0 as usize
+    while i < len(name) {
+        let c: u8 = name[i]
+        if c <= 32 as u8 || c == 34 as u8 || c == 39 as u8 || c == 60 as u8 || c == 62 as u8 || c == 61 as u8 || c == 96 as u8 || c == 47 as u8 { return false }
+        i = i + 1 as usize
+    }
+    return true
+}
+export function htmlControlBytesSafe(data: []u8): bool {
+    let i: usize = 0 as usize
+    while i < len(data) {
+        if data[i] == 0 as u8 { return false }
+        i = i + 1 as usize
+    }
+    return true
+}

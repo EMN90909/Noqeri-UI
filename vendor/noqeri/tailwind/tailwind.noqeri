@@ -1,0 +1,53 @@
+// SPDX-License-Identifier: MIT
+module noqeri.tailwind
+export function tailwindClassByte(c: u8): bool {
+    return (c >= 65 as u8 && c <= 90 as u8) || (c >= 97 as u8 && c <= 122 as u8) || (c >= 48 as u8 && c <= 57 as u8) || c == 45 as u8 || c == 95 as u8 || c == 47 as u8 || c == 58 as u8 || c == 33 as u8 || c == 46 as u8
+}
+export function tailwindClassValid(name: []u8): bool {
+    if len(name) == 0 as usize || len(name) > 128 as usize { return false }
+    let i: usize = 0 as usize
+    while i < len(name) {
+        if !tailwindClassByte(name[i]) { return false }
+        if name[i] == 58 as u8 && (i == 0 as usize || i + 1 as usize == len(name)) { return false }
+        i = i + 1 as usize
+    }
+    return true
+}
+export function tailwindVariantCount(name: []u8): isize {
+    if !tailwindClassValid(name) { return -1 as isize }
+    let variants: isize = 0 as isize
+    let i: usize = 0 as usize
+    while i < len(name) { if name[i] == 58 as u8 { variants = variants + 1 as isize } i = i + 1 as usize }
+    return variants
+}
+export function tailwindSafeClassListSize(a: []u8, b: []u8): isize {
+    if !tailwindClassValid(a) || !tailwindClassValid(b) { return -1 as isize }
+    return (len(a) + 1 as usize + len(b)) as isize
+}
+export function tailwindJoinClasses(a: []u8, b: []u8, dst: []u8): isize {
+    let n: isize = tailwindSafeClassListSize(a,b)
+    if n < 0 as isize || len(dst) < n as usize { return -1 as isize }
+    let i: usize = 0 as usize
+    while i < len(a) { dst[i] = a[i] i = i + 1 as usize }
+    dst[i] = 32 as u8
+    i = i + 1 as usize
+    let j: usize = 0 as usize
+    while j < len(b) { dst[i + j] = b[j] j = j + 1 as usize }
+    return n
+}
+export function tailwindResponsivePrefix(name: []u8): bool {
+    if len(name) < 4 as usize || !tailwindClassValid(name) { return false }
+    if name[0] == 115 as u8 && name[1] == 109 as u8 && name[2] == 58 as u8 { return true }
+    if name[0] == 109 as u8 && name[1] == 100 as u8 && name[2] == 58 as u8 { return true }
+    if name[0] == 108 as u8 && name[1] == 103 as u8 && name[2] == 58 as u8 { return true }
+    if name[0] == 120 as u8 && name[1] == 108 as u8 && name[2] == 58 as u8 { return true }
+    return false
+}
+export function tailwindArbitraryValueSafe(name: []u8): bool {
+    let i: usize = 0 as usize
+    while i < len(name) {
+        if name[i] == 91 as u8 || name[i] == 93 as u8 || name[i] == 123 as u8 || name[i] == 125 as u8 { return false }
+        i = i + 1 as usize
+    }
+    return true
+}

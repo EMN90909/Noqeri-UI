@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: MIT
+import "../src/ecosystem.noqeri"
+function main(): int {
+    let good: [u8; 4] = [109 as u8, 97 as u8, 105 as u8, 110 as u8]
+    let bad: [u8; 3] = [49 as u8, 97 as u8, 98 as u8]
+    let klass: [u8; 7] = [98 as u8, 103 as u8, 45 as u8, 98 as u8, 108 as u8, 117 as u8, 101 as u8]
+    let input: [u8; 3] = [60 as u8, 38 as u8, 62 as u8]
+    let escaped: [u8; 16]
+    if !uiValidId(slice(good)) { return 1 }
+    if uiValidId(slice(bad)) { return 2 }
+    if !uiValidTag(slice(good)) { return 3 }
+    if !uiValidClass(slice(klass)) { return 4 }
+    if uiEscapedSize(slice(input)) != 13 as usize { return 5 }
+    if uiEscapeText(slice(input),slice(escaped)) != 13 as isize { return 6 }
+    if escaped[0] != 38 as u8 || escaped[1] != 108 as u8 { return 7 }
+    return 0
+}
+print(main())

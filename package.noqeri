@@ -1,9 +1,14 @@
 package {
     name: "noqeri/components"
-    version: "0.1.0"
+    version: "0.2.0"
     edition: "2026"
     entry: "src/components.noqeri"
     profile: "library"
-    target: "web-view"
+    target: "web-native"
     license: "MIT"
+}
+dependencies {
+    dom: "noqeri/dom@0.1.1"
+    html: "noqeri/html@0.1.1"
+    tailwind: "noqeri/tailwind@0.1.1"
 }

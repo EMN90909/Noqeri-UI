@@ -1,129 +1,40 @@
 # Component reference
 
-## Contract
+## Native loader
 
-Components are authored as `component Name(parameter: string) { ... }` with one or more semantic DOM nodes. Most input params are strings. Literal class names are deliberate public extension points. The browser-view compiler escapes text and attributes. Interactive state/actions are authored in the calling view.
+`scripts/native.sh` loads 102 `src/components.noqeri` components plus 19 prefixed `Core*` components from the Noqeri language repository's `Lib/web/ui.noqeri`. No JavaScript is bundled or required. The exposed namespace is `import "noqeri/ui" as ui`; the native compiler does not yet resolve `noqeri/components` from a registry package directly.
 
-## Exports (102)
+## Core Noqeri UI exports
 
-- `Heading(text: string)`
-- `Heading2(text: string)`
-- `Heading3(text: string)`
-- `Eyebrow(text: string)`
-- `Text(text: string)`
-- `Lead(text: string)`
-- `MutedText(text: string)`
-- `Caption(text: string)`
-- `InlineCode(text: string)`
-- `KeyboardKey(text: string)`
-- `Quote(text: string)`
-- `Strong(text: string)`
-- `FieldHelp(text: string)`
-- `FieldError(text: string)`
-- `Badge(text: string)`
-- `BadgeSuccess(text: string)`
-- `BadgeWarning(text: string)`
-- `BadgeDanger(text: string)`
-- `BadgeInfo(text: string)`
-- `Chip(text: string)`
-- `Avatar(text: string)`
-- `Tag(text: string)`
-- `FooterNote(text: string)`
-- `ListItem(text: string)`
-- `TableCaption(text: string)`
-- `BreadcrumbCurrent(text: string)`
-- `Loading(text: string)`
-- `HelpText(text: string)`
-- `MenuHeading(text: string)`
-- `DialogExplanation(text: string)`
-- `Button(label: string)`
-- `SubmitButton(label: string)`
-- `SecondaryButton(label: string)`
-- `OutlineButton(label: string)`
-- `GhostButton(label: string)`
-- `DangerButton(label: string)`
-- `SmallButton(label: string)`
-- `DisabledButton(label: string)`
-- `TabButton(label: string)`
-- `TabSelected(label: string)`
-- `LinkButton(label: string, href: string)`
-- `SecondaryLink(label: string, href: string)`
-- `NavLink(label: string, href: string)`
-- `SidebarLink(label: string, href: string)`
-- `BreadcrumbLink(label: string, href: string)`
-- `PaginationLink(label: string, href: string)`
-- `InlineLink(label: string, href: string)`
-- `CardLink(label: string, href: string)`
-- `Card(title: string, description: string)`
-- `CardWithFooter(title: string, description: string, footer: string)`
-- `Panel(title: string, description: string)`
-- `Paper(title: string, description: string)`
-- `FeatureCard(eyebrow: string, title: string, description: string)`
-- `StatCard(label: string, value: string, detail: string)`
-- `Metric(label: string, value: string)`
-- `PageHeader(eyebrow: string, title: string, description: string)`
-- `Hero(eyebrow: string, title: string, description: string)`
-- `SectionHeading(title: string, description: string)`
-- `ToolbarTitle(title: string, description: string)`
-- `AvatarName(initials: string, name: string)`
-- `Alert(title: string, description: string)`
-- `AlertSuccess(title: string, description: string)`
-- `AlertWarning(title: string, description: string)`
-- `AlertDanger(title: string, description: string)`
-- `AlertInfo(title: string, description: string)`
-- `EmptyState(title: string, description: string)`
-- `Callout(title: string, message: string)`
-- `ErrorSummary(title: string, message: string)`
-- `SkeletonText()`
-- `SkeletonCard()`
-- `Spinner(label: string)`
-- `Divider()`
-- `SectionDivider()`
-- `Disclosure(title: string, content: string)`
-- `AccordionItem(title: string, content: string)`
-- `Step(number: string, title: string, description: string)`
-- `TimelineItem(date: string, title: string, description: string)`
-- `DescriptionItem(term: string, value: string)`
-- `DataRow(label: string, value: string)`
-- `TableRow2(first: string, second: string)`
-- `TableRow3(first: string, second: string, third: string)`
-- `TableHeader2(first: string, second: string)`
-- `TableHeader3(first: string, second: string, third: string)`
-- `Field(labelText: string, fieldId: string, placeholderText: string)`
-- `EmailField(labelText: string, fieldId: string)`
-- `PasswordField(labelText: string, fieldId: string)`
-- `NumberField(labelText: string, fieldId: string)`
-- `SearchField(labelText: string, fieldId: string)`
-- `PhoneField(labelText: string, fieldId: string)`
-- `DateField(labelText: string, fieldId: string)`
-- `FileField(labelText: string, fieldId: string)`
-- `RequiredField(labelText: string, fieldId: string, placeholderText: string)`
-- `TextAreaField(labelText: string, fieldId: string, placeholderText: string)`
-- `Checkbox(labelText: string, fieldId: string)`
-- `Radio(labelText: string, fieldId: string, groupName: string)`
-- `Switch(labelText: string, fieldId: string)`
-- `SelectTwo(labelText: string, fieldId: string, optionOne: string, optionTwo: string)`
-- `SelectThree(labelText: string, fieldId: string, optionOne: string, optionTwo: string, optionThree: string)`
-- `ProgressQuarter(label: string)`
-- `ProgressHalf(label: string)`
-- `ProgressThreeQuarters(label: string)`
-- `ProgressComplete(label: string)`
+`CoreHeading`, `CoreLead`, `CoreCard`, `CoreBadge`, `CoreNotice`, `CoreButton`, `CoreLinkButton`, `CoreNavLink`, `CoreTextField`, `CoreStatistic`, `CorePageHeader`, `CoreSectionHeading`, `CorePanel`, `CoreEmptyState`, `CoreFieldHint`, `CoreFieldError`, `CoreSecondaryLink`, `CoreFooterNote`, `CoreSubmitButton`, `CoreTextAreaField`.
 
-## Composition
+Core component names are generated with a `Core` prefix. There are **20 names in the installed core library** (not 19). If core exports change in a future Noqeri revision, this count may change.
 
-Use Noqeri-native elements when flexible children or event handlers are needed:
+## Native Noqeri UI components
+
+All 102 APIs live in [src/components.noqeri](../src/components.noqeri), including Button variants, Typography, Field/Input variants, accessible native details and summary, Progress, DataRows, Tables, Alerts and stat cards. Styling is in `styles.css`.
+
+### Server-driven interactions
+
+Do not mistake static visual primitives for stateful components. Noqeri native `serve-app` handles actions through HTML POST requests:
 
 ```noqeri
-view {
-    div class: "nui-stack" {
-        ui.Card("Project", "Ready")
-        button class: "nui-button" type: "button" on.click { count = count + 1 } { "Add" }
-        table class: "nui-table" {
-            thead { ui.TableHeader2("Task", "Status") }
-            tbody { ui.TableRow2("Deployment", "Healthy") }
-        }
+let count = 0
+route "/" {
+    main {
+        ui.CoreHeading("Counter")
+        p { "Count: " + count }
+        button class: "nui-button" on.click { count = count + 1 } { "Increment" }
     }
 }
 ```
 
-Use standard HTML elements for complex form structures. For lists, compose `ul` with `li`. For tabs, use native buttons and conditional view state only after implementing correct WAI-ARIA keyboard behavior; visual helpers are not a replacement.
+Use a native `form on.submit` and server-side validation for forms. The native web host does not yet accept arbitrary event callbacks in reusable components.
+
+## Accessible patterns
+
+Semantic HTML input/label associations, default keyboard-native `details` toggles, focus-visible CSS, reduced-motion handling and low-motion states are included. Visual tabs alone do not provide WAI-ARIA keyboard navigation, so `TabButton` and `TabSelected` are styling primitives, not a claimed complete tab system.
+
+## Registry native functions
+
+`src/ecosystem.noqeri` imports three pinned modules: `dom`, `html`, `tailwind`. Validations are ordinary compiled Noqeri functions and are tested independently from the web view DSL. Client DOM host externs remain unsupported in the native web static path.

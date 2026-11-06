@@ -1,12 +1,15 @@
-name: Noqeri UI compatibility
+name: Noqeri UI native verification
 on:
   push:
     branches: [main]
   pull_request:
+    branches: [main]
+permissions:
+  contents: read
 jobs:
-  browser-views:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  native:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
         with:
@@ -16,9 +19,32 @@ jobs:
           repository: EMN90909/Noqeri
           ref: main
           path: Noqeri
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
         with:
-          node-version: '22'
-      - name: Parse, compile and test Noqeri UI
+          repository: EMN90909/noqeri-registry
+          ref: main
+          path: noqeri-registry
+      - name: Assert vendored registry modules match pinned source
         working-directory: Noqeri-UI
-        run: NOQERI_REPO=../Noqeri node --test tests/ui-contract.mjs tests/install.test.mjs
+        run: |
+          cmp vendor/noqeri/dom/dom.noqeri ../noqeri-registry/packages/noqeri/dom/0.1.1/src/dom.noqeri
+          cmp vendor/noqeri/html/html.noqeri ../noqeri-registry/packages/noqeri/html/0.1.1/src/html.noqeri
+          cmp vendor/noqeri/tailwind/tailwind.noqeri ../noqeri-registry/packages/noqeri/tailwind/0.1.1/src/tailwind.noqeri
+      - name: Build Noqeri native tools
+        run: |
+          cmake -S Noqeri -B /tmp/noqeri-native -DCMAKE_BUILD_TYPE=Release -DNOQERI_GRAPHICS_PORTABLE_BUILD=ON
+          cmake --build /tmp/noqeri-native --target noqeri-web noqeri -j 2
+      - name: Native compilation, ecosystem tests and JavaScript-free audit
+        working-directory: Noqeri-UI
+        env:
+          NOQERI_SOURCE: ../Noqeri
+          NOQERI_WEB_BIN: /tmp/noqeri-native/noqeri-web
+          NOQERI_BIN: /tmp/noqeri-native/noqeri
+        run: bash scripts/test-native.sh
+      - name: Confirm JavaScript sources removed
+        working-directory: Noqeri-UI
+        run: |
+          if find . -type f \( -name '*.js' -o -name '*.mjs' -o -name '*.jsx' -o -name '*.ts' -o -name '*.tsx' \) | grep -q .; then
+            echo "JavaScript or TypeScript source files remain" >&2
+            exit 1
+          fi
