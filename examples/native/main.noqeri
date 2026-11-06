@@ -73,7 +73,7 @@ route "/components" {
             ui.Step("01", "Install", "Get the Noqeri UI registry package.")
             ui.Step("02", "Build", "Compile to static HTML and CSS.")
             ui.Step("03", "Ship", "Deploy the static files to any standard web host.")
-            ui.FooterNote("102 Noqeri UI components and 19 prefixed core components.")
+            ui.FooterNote("102 Noqeri UI components and 20 prefixed core components.")
         }
     }
 }
