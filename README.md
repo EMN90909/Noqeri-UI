@@ -1,6 +1,6 @@
 # Noqeri UI
 
-A **Noqeri-native UI system** combining **102 Noqeri UI components** with **19 Noqeri core components**, plus three pinned and directly imported native libraries from [Noqeri Registry](https://github.com/EMN90909/noqeri-registry).
+A **Noqeri-native UI system** combining **102 Noqeri UI components** with **20 Noqeri core components**, plus three pinned and directly imported native libraries from [Noqeri Registry](https://github.com/EMN90909/noqeri-registry).
 
 **No JavaScript, TypeScript, Node.js, npm or frontend runtime dependency** is used to build the native static pages or perform the server-driven demo actions. No JSX, React or CSS framework required. The native compiler generates browser-standard HTML and CSS.
 
