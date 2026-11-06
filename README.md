@@ -15,6 +15,8 @@ cmake -S ../Noqeri -B ../Noqeri/build -DCMAKE_BUILD_TYPE=Release -DNOQERI_GRAPHI
 cmake --build ../Noqeri/build --target noqeri-web noqeri -j2
 
 NOQERI_SOURCE=../Noqeri bash scripts/native.sh build ./dist/native
+# Or compile your own application using the same Noqeri UI components:
+NOQERI_SOURCE=../Noqeri bash scripts/native.sh build ./dist/my-app ./my-app/main.noqeri
 ```
 
 The output includes `index.html`, `components/index.html`, `forms/index.html` and `theme.css`. Serve the directory from any static host. There are **no generated JavaScript files**.
@@ -23,6 +25,8 @@ For a fully native no-JavaScript action server **on localhost only**:
 
 ```sh
 NOQERI_SOURCE=../Noqeri bash scripts/native.sh serve 8080
+# Serve your own Noqeri application with native form/button actions:
+NOQERI_SOURCE=../Noqeri bash scripts/native.sh serve 8080 ./my-app/main.noqeri
 ```
 
 `serve-app` runs a native server with regular HTML POSTs, CSRF protection and per-session state. It is an experimental **local development server**, not production-hardened.
@@ -47,7 +51,7 @@ route "/" {
 }
 ```
 
-To build your own app, adapt `scripts/native.sh` to use your `main.noqeri` rather than `examples/native/main.noqeri`; it injects `styles.css` using the native `style """..."""` syntax. See `examples/native-actions/main.noqeri` for genuinely functional server-driven form and button actions.
+To build your own app, pass the directory containing `main.noqeri` or the `.noqeri` source file as the third argument. The script injects the UI stylesheet using native `style """..."""` syntax. See `examples/native-actions/main.noqeri` for genuinely functional server-driven form and button actions.
 
 ## Imported ecosystem libraries
 
