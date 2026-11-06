@@ -8,7 +8,13 @@ A native **Noqeri-authored** component system for Noqeri's experimental browser-
 
 ## Quick start (Noqeri browser views)
 
-Place `src/components.noqeri` from this repository at `noqeri/components.noqeri` in your application's source directory. Place `styles.css` at its root (the browser-view builder will include it).
+Recommended: use the registry installer, which calls Noqeri's verified package manager, installs the source, links CSS, and preserves existing styles:
+
+```sh
+NOQERI_REPO=/path/to/Noqeri node /path/to/Noqeri-UI/scripts/install.mjs ./my-app
+```
+
+For manual installation, place `src/components.noqeri` at `noqeri/components.noqeri`, and `styles.css` in your application root. The web-view builder must see both assets under the project root.
 
 ```noqeri
 import "noqeri/components" as ui
@@ -58,7 +64,7 @@ Semantic `details`, `summary`, form controls and route links are interactive wit
 
 ```sh
 NOQERI_REPO=/path/to/Noqeri node --test tests/ui-contract.mjs
-NOQERI_REPO=/path/to/Noqeri node scripts/build-showcase.mjs
+NOQERI_REPO=/path/to/Noqeri node --test tests/install.test.mjs\nNOQERI_REPO=/path/to/Noqeri node scripts/build-showcase.mjs
 ```
 
 This suite builds and imports the generated Noqeri views and validates component coverage. CI checks out Noqeri and tests the real compiler. License: MIT.

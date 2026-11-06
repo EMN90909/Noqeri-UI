@@ -21,4 +21,4 @@ jobs:
           node-version: '22'
       - name: Parse, compile and test Noqeri UI
         working-directory: Noqeri-UI
-        run: NOQERI_REPO=../Noqeri node --test tests/ui-contract.mjs
+        run: NOQERI_REPO=../Noqeri node --test tests/*.test.mjs
