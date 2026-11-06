@@ -17,7 +17,7 @@ try {
     const page=await readFile(join(out,'components','index.html'),'utf8');
     if(!page.includes('Noqeri'))throw Error('generated showcase missing content');
     const module=await import(pathToFileURL(join(out,'main.mjs')).href);
-    const tree=JSON.stringify(module.render());
+    const tree=JSON.stringify(module.render('/components'));
     if(!tree.includes('nui-card')||!tree.includes('nui-accordion-item')||!tree.includes('nui-button'))throw Error('components missing in compiled render tree');
     console.log('Noqeri UI showcase build OK',built,'output:',out);
     if(process.env.NOQERI_KEEP_DEMO){const fs=await import('node:fs/promises');await fs.cp(out,resolve(process.env.NOQERI_KEEP_DEMO),{recursive:true});}
