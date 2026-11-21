@@ -7,10 +7,3 @@ package {
     target: "web-native"
     license: "MIT"
 }
-dependencies {
-    dom: "noqeri/dom@0.1.1"
-    html: "noqeri/html@0.1.1"
-    tailwind: "noqeri/tailwind@0.1.1"
-    router: "noqeri/router@0.1.1"
-    json: "noqeri/json@0.1.1"
-}

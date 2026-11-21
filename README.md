@@ -67,7 +67,7 @@ Ordinary Noqeri source `src/ecosystem.noqeri` **imports and wraps** the pinned `
 
 These are **native language helpers**. The Tailwind registry module validates class names; it is not the Tailwind CSS framework. The DOM module exposes extern host calls, but the library does not claim a browser DOM host is available without wiring it up. Browser markup is rendered by Noqeri's native web compiler.
 
-The package manifest pins these dependencies and vendor copies are checked against their registry sources in CI. The reused original modules are MIT licensed, with upstream attribution in `vendor/README.md`.
+The package includes the small native helper modules it uses under `vendor/`, so installing the component package is self-contained and does not create a hidden dependency on a different `noqeri/json` API. The reused original modules are MIT licensed, with upstream attribution in `vendor/README.md`.
 
 ## Components and design
 
