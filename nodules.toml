@@ -1,0 +1,9 @@
+[nodule]
+format = "ndl-1"
+name = "noqeri/components"
+version = "0.2.1"
+entry = "src/components.noqeri"
+kind = "library"
+target = "web-native"
+license = "MIT"
+description = "Official Noqeri-UI package for the Noqeri ecosystem"
