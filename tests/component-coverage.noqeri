@@ -114,6 +114,10 @@ route "/" {
             ui.CoreHeading("Noqeri core coverage")
             ui.CoreBadge("Core badge")
             ui.CoreCard("Core card", "Reusable built-in UI")
+            ui.SecurityBadge("CSP strict active")
+            ui.SecurityAlert("Origin verified", "CSRF and same-origin headers enforced")
+            ui.PolicyBanner("Zero-Node Native Runtime", "Served without JavaScript runtime dependencies")
+            ui.AuditSummary("noqeri/components", "verified", "sha256:native")
         }
     }
 }

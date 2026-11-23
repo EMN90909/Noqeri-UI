@@ -625,3 +625,30 @@ component Pagination3(previousHref: string, currentPage: string, nextHref: strin
         a class: "nui-pagination-link" href: nextHref { "Next" }
     }
 }
+
+component SecurityBadge(label: string) {
+    span class: "nui-badge nui-badge-success nui-security-badge" role: "status" { label }
+}
+
+component SecurityAlert(title: string, policyNote: string) {
+    div class: "nui-alert nui-alert-info nui-security-alert" role: "status" {
+        strong class: "nui-alert-title" { title }
+        p class: "nui-alert-body" { policyNote }
+    }
+}
+
+component PolicyBanner(headline: string, enforcement: string) {
+    section class: "nui-callout nui-policy-banner" aria_label: headline {
+        h3 class: "nui-callout-title" { headline }
+        p class: "nui-callout-body" { enforcement }
+    }
+}
+
+component AuditSummary(target: string, status: string, digest: string) {
+    div class: "nui-panel nui-audit-summary" {
+        strong { target }
+        span class: "nui-badge nui-badge-info" { status }
+        code class: "nui-inline-code" { digest }
+    }
+}
+
